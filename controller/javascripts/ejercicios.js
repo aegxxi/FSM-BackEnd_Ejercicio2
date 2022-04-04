@@ -1,6 +1,10 @@
 const myhandler = require('../handler')
+const entorno = require('../../appSrvEntorno');
 
 const {obtenerMomentoDeArranque} = myhandler
+
+const { fnMiServidor } =entorno
+const { srvPuerto, srvNombre } = fnMiServidor()
 
 
 const saltoLinea =  '<Br/>';    //'\n' en Java, <Br/> en Html
@@ -62,7 +66,7 @@ function pgnEjercicios(){
                       ${saltoLinea}
                       <ul>
                         <li>
-                          <p>Ejercicio 1 -> Sumar dos valores: <a href="http://localhost:4000/ejercicios/ej01op02/9/2" target="_blank">Ver Ejercicio</a></p>
+                          <p>Ejercicio 1 -> Sumar dos valores: <a href="http://localhost:${srvPuerto}/ejercicios/ej01op02/9/2" target="_blank">Ver Ejercicio</a></p>
                           <details>
                           <summary>Comentarios</summary>
                           <article>
@@ -83,7 +87,7 @@ function pgnEjercicios(){
                         </details> 
                           </li>
                         <li>
-                          <p>Ejercicio 2 -> Restar dos valores, distintos de cero: <a href="http://localhost:4000/ejercicios/ej02op01/9/2" target="_blank">Ver Ejercicio</a></p>
+                          <p>Ejercicio 2 -> Restar dos valores, distintos de cero: <a href="http://localhost:${srvPuerto}/ejercicios/ej02op01/9/2" target="_blank">Ver Ejercicio</a></p>
                           <details>
                             <summary>Comentarios</summary>
                             <article>
@@ -97,7 +101,7 @@ function pgnEjercicios(){
                           </details> 
                           </li>
                         <li>
-                          <p>Ejercicio 3 -> Nombre y Apellido (Por Consulta, sin validaciones): <a href="http://localhost:4000/ejercicios/ej03op01/?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejercicio</a></p>
+                          <p>Ejercicio 3 -> Nombre y Apellido (Por Consulta, sin validaciones): <a href="http://localhost:${srvPuerto}/ejercicios/ej03op01/?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejercicio</a></p>
                           <details>
                             <summary>Comentarios</summary>
                             <article>
@@ -107,7 +111,7 @@ function pgnEjercicios(){
                           </details>   
                         </li>
                         <li>
-                          <p>Ejercicio 3 -> Nombre y Apellido (Por Consulta, con validaciones): <a href="http://localhost:4000/ejercicios/ej03op02/?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejercicio</a></p>
+                          <p>Ejercicio 3 -> Nombre y Apellido (Por Consulta, con validaciones): <a href="http://localhost:${srvPuerto}/ejercicios/ej03op02/?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejercicio</a></p>
                           <details>
                             <summary>Comentarios</summary>
                             <article>
@@ -120,7 +124,7 @@ function pgnEjercicios(){
                           </details> 
                           </li>
                         <li>
-                          <p>Ejercicio 3 -> Nombre y Apellido (Por Parametros, con validaciones): <a href="http://localhost:4000/ejercicios/ej03op03/Andres/Garcia" target="_blank">Ver Ejercicio</a></p>
+                          <p>Ejercicio 3 -> Nombre y Apellido (Por Parametros, con validaciones): <a href="http://localhost:${srvPuerto}/ejercicios/ej03op03/Andres/Garcia" target="_blank">Ver Ejercicio</a></p>
                           <details>
                             <summary>Comentarios</summary>
                             <article>

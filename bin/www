@@ -5,12 +5,21 @@
  */
 
 const app = require('../app');
+const cAppName = app.name.toLocaleUpperCase();
+console.log(`Inicio - Informacion para depuracion...`);
+console.log(`* app. => name: ${app.name}, puerto:${app.puerto}, Port:${app.Port}, PORT:${app.PORT}`);
+//console.log();
+
+const entorno = require('../appSrvEntorno');
+console.log(`* entorno. => funcion_fnAppObtenerNombre:${entorno.fnAppObtenerNombre()}, name:${entorno.name}, funcion_fnMiServidor:${entorno.fnMiServidor()}`);
+console.log(entorno.fnMiServidor());
+//console.log();
+
 const debug = require('debug')('ejsrv-njs01-a1:server');
 const http = require('http');
 
 const myhandler =require('../controller/handler');
-let srvPuerto
-let srvNombre
+
 
 //const { version } = require('os');
 
@@ -18,31 +27,39 @@ let srvNombre
  * Obtenga puerto del entorno y almacene en Express. 
  * (Get port from environment and store in Express.)
  */
+const {fnMiServidor}= entorno
+const {srvPuerto,srvNombre} = fnMiServidor()
+console.log(`* entorno.fnMiServidor() => srvNombre:${srvNombre}, srvPuerto:${srvPuerto}`);
+console.log(`Fin - Informacion para depuracion.`);
+console.log();
 
-var port = normalizePort(process.env.PORT || '4000');
+//const port = normalizePort(process.env.PORT || '4000');
+const port = normalizePort(process.env.PORT || srvPuerto);
 app.set('port', port);
 
 /**
  * Crear un servidor HTTP. 
  * (Create HTTP server.)
  */
-
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Escuche el puerto provisto, en todas las interfaces de red. 
  * (Listen on provided port, on all network interfaces.)
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+
+// ---------
+// Funciones
+// ---------
 
 /**
  * Normaliza un puerto en un número, cadena o falso.
  * (Normalize a port into a number, string, or false.)
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -63,7 +80,6 @@ function normalizePort(val) {
  * Ayector de eventos para el evento de "error" del servidor HTTP. 
  * (Event listener for HTTP server "error" event.)
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -93,7 +109,6 @@ function onError(error) {
  * Ayector de eventos para el evento de "escuchar" del servidor HTTP. 
  * (Event listener for HTTP server "listening" event.)
  */
-
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string'
@@ -101,10 +116,9 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 
- 
   // Muestro informacion en la consola
    const info =` * Express.js version: ${myhandler.obtenerExpressVersion()}` // Opcional: obtengo informacion adicional, por el momento solo la version de express.
-   console.log(`El Servidor de ejemplo Escucha en el puerto: ${addr.port}`); // Arranco el Servidor
+   console.log(`El Servidor de ejemplo '${cAppName}' Escucha en el puerto: ${addr.port}`); // Arranco el Servidor
    console.log(` * Direcion/es Ip V4: ${myhandler.obtenerIpLocal()}`)
    console.log(` * Node Version: ${myhandler.obtenerNodeVersion()}`);
    console.log(`${info}`);
@@ -112,5 +126,4 @@ function onListening() {
    console.log(``);
    console.log(` * Ir a la pagina inicial del servidor: http://localhost:${addr.port}`);
 
-}
-
+};

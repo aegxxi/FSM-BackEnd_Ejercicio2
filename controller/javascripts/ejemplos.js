@@ -1,4 +1,8 @@
-const myhandler = require('../handler')
+const myhandler = require('../handler');
+const entorno = require('../../appSrvEntorno');
+
+const { fnMiServidor } =entorno
+const { srvPuerto, srvNombre } = fnMiServidor()
 
 const saltoLinea =  '<Br/>';  //'\n' en Java, <Br/> en Html
 const b = '&nbsp';              //Espacio en blanco
@@ -60,10 +64,10 @@ function pgnEjemplos() {
                       </h3>
                       <ul>
                         <li>
-                          <p>Ejemplo 1 -> Procesando Parametros (params) en las rutas: <a href="http://localhost:4000/ejemplos/ejemplo1/Andres" target="_blank">Ver Ejemplo</a></p>
+                          <p>Ejemplo 1 -> Procesando Parametros (params) en las rutas: <a href="http://localhost:${srvPuerto}/ejemplos/ejemplo1/Andres" target="_blank">Ver Ejemplo</a></p>
                         </li>
                         <li>
-                          <p>Ejemplo 2 -> Procesando Consultas (Querys) en las rutas: <a href="http://localhost:4000/ejemplos/ejemplo2/?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejemplo</a></p>
+                          <p>Ejemplo 2 -> Procesando Consultas (Querys) en las rutas: <a href="http://localhost:${srvPuerto}/ejemplos/ejemplo2/?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejemplo</a></p>
                         </li>
                       </ul> 
                       ${saltoLinea}
@@ -144,7 +148,7 @@ function ejemplo1(alumno="Desconocido"){
                           Retorna: <b><i>Hola: ${alumno}</i></b>
                         </h1>
                         ${saltoLinea}
-                        <p>URI: <i><b> localhost:${'port'}</b>/numen/<i class='destacar2'>${alumno}</i></i</p>
+                        <p>URI: <i><b> localhost:${srvPuerto}</b>/ejemplos/ejemplo1/<i class='destacar2'>${alumno}</i></i</p>
                         ${saltoLinea}${saltoLinea}
                         <h2>
                           Codigo: 
@@ -173,97 +177,102 @@ function ejemplo1(alumno="Desconocido"){
 // ------------------------------------------
 //  Ej: http://localhost:4000/prueba?nombre=Andres&apellido=Garcia
 // app.get('/prueba', (req, res) => {
+function ejemplo2(nombre = "Desconocido",apellido = "Desconocido", port = ''){
 
-    function ejemplo2(nombre="Desconocido",apellido="Desconocido", port="Desconocido"){
-    
-        const saltoLinea =  '<Br/>'; 
-        const b = '&nbsp'; //Espacio en blanco
-        const tab = `${b}${b}${b}`; //Tabulacion de tres espacios 
-    
-        const estilos=`<style>
-                        h1 {
-                          color:darkslategrey;
-                          font-weight: normal;
-                        }
-                        h2 {color:darkslategrey;}
-                        p {color:darkslategrey;}
-                        a {color:aliceblue}
-      
-                        .interlineado {line-height: 150%;}
-      
-                        .destacar1{
-                          color:brown;
-                          font-size:large;
-                        }
-      
-                        .destacar2{
-                          color:blueviolet;
-                          font-size:large;
-                        }
-      
-                        .cuerpo {
-                          color:Black;
-                          background-color: lightsteelblue;
-                          margin: 2rem;
-                        }
-      
-                        .codigo {
-                          color:white;
-                          background-color: darkslategray;
-                          margin-right: 32rem;
-                          line-height: 200%;
-                          font-size:large;
-                        }
-      
-                        .firma {
-                          color:darkslategrey;
-                          height: 64rem;
-                          text-align: right;
-                          margin-right: 32rem;
-                          }  
-                      </style>
-                      `
-                      ; 
-        
-        //let nombre = nombre //req.query.nombre;
-        //let apellido = apellido //req.query.apellido;
-        let resultado = `Mi nombre es: ${nombre}, ${apellido} `;
-      
-        let respuesta =`
-                        <head>
-                          <title>Rutas (Qrys)</title>
-                          ${estilos}
-                        </head>
-                        <body  class="cuerpo">
-                          <h1>
-                            Retorna: <b><i>${resultado.trim()}</i></b>
-                          </h1>
-                          ${saltoLinea}
-                          <p>URI: <b><i> localhost:${port}</b>/prueba<b class='destacar1'>?</b><i class='destacar2'>nombre=${nombre}</i><b class='destacar1'>&</b><i class='destacar2'>apellido=${apellido}</i></i></p>
-                          ${saltoLinea}
-                          <h2>
-                            Codigo: 
-                          </h2>
-                          <div class='Codigo'>
-                            <code>    
-                              ${`app.get('/prueba', (req, res) => {   `} ${saltoLinea}
-                              ${`${tab} let nombre = req.query.nombre;`} ${saltoLinea}
-                              ${`${tab} let apellido = req.query.apellido;`}${saltoLinea}
-                              ${`${tab} let resultado = 'Mi nombre es: ${'${nombre}, ${apellido}'}';`} ${saltoLinea}
-                              ${`${tab} res.status(200).send(resultado);`} ${saltoLinea}
-                              ${`})   `} ${saltoLinea}
-                            </code>
-                          </div>
-                          ${saltoLinea}${saltoLinea}${saltoLinea} 
-                          <p class="firma">
-                          ${dA}Ejercicio realizado por: <b>Andres Eduardo Garcia </b>
-                          </p>
-                        </body> 
-                        `
-                        ;
-        
-        return(respuesta);
-      }
+  const saltoLinea =  '<Br/>'; 
+  const b = '&nbsp'; //Espacio en blanco
+  const tab = `${b}${b}${b}`; //Tabulacion de tres espacios 
+
+  const estilos=`<style>
+                  h1 {
+                    color:darkslategrey;
+                    font-weight: normal;
+                  }
+                  h2 {color:darkslategrey;}
+                  p {color:darkslategrey;}
+                  a {color:aliceblue}
+
+                  .interlineado {line-height: 150%;}
+
+                  .destacar1{
+                    color:brown;
+                    font-size:large;
+                  }
+
+                  .destacar2{
+                    color:blueviolet;
+                    font-size:large;
+                  }
+
+                  .cuerpo {
+                    color:Black;
+                    background-color: lightsteelblue;
+                    margin: 2rem;
+                  }
+
+                  .codigo {
+                    color:white;
+                    background-color: darkslategray;
+                    margin-right: 32rem;
+                    line-height: 200%;
+                    font-size:large;
+                  }
+
+                  .firma {
+                    color:darkslategrey;
+                    height: 64rem;
+                    text-align: right;
+                    margin-right: 32rem;
+                    }  
+                </style>
+                `
+                ; 
+  
+  //let nombre = nombre //req.query.nombre;
+  //let apellido = apellido //req.query.apellido;
+  let resultado = `Mi nombre es: ${nombre}, ${apellido} `;
+
+  console.log(port)
+  let myPort = (port) ? port :`${srvPuerto}`;
+  myPort = (port=='' || port=='port' ) 
+    ? (srvPuerto) ? `${srvPuerto}` : 'port'
+    :port;
+
+  let respuesta =`
+                  <head>
+                    <title>Rutas (Qrys)</title>
+                    ${estilos}
+                  </head>
+                  <body  class="cuerpo">
+                    <h1>
+                      Retorna: <b><i>${resultado.trim()}</i></b>
+                    </h1>
+                    ${saltoLinea}
+                    <p>URI: <b><i> localhost:${myPort}</b>/ejemplos/ejemplo2<b class='destacar1'>?</b><i class='destacar2'>nombre=${nombre}</i><b class='destacar1'>&</b><i class='destacar2'>apellido=${apellido}</i></i></p>
+                    ${saltoLinea}
+                    <h2>
+                      Codigo: 
+                    </h2>
+                    <div class='Codigo'>
+                      <code>    
+                        ${`app.get('/prueba', (req, res) => {   `} ${saltoLinea}
+                        ${`${tab} let nombre = req.query.nombre;`} ${saltoLinea}
+                        ${`${tab} let apellido = req.query.apellido;`}${saltoLinea}
+                        ${`${tab} let resultado = 'Mi nombre es: ${'${nombre}, ${apellido}'}';`} ${saltoLinea}
+                        ${`${tab} res.status(200).send(resultado);`} ${saltoLinea}
+                        ${`})   `} ${saltoLinea}
+                      </code>
+                    </div>
+                    ${saltoLinea}${saltoLinea}${saltoLinea} 
+                    <p class="firma">
+                    ${dA}Ejercicio realizado por: <b>Andres Eduardo Garcia </b>
+                    </p>
+                  </body> 
+                  `
+                  ;
+  
+  return(respuesta);
+};
     
 
 

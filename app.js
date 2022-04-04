@@ -11,6 +11,7 @@ const ejerciciosRouter = require('./routes/ejercicios');
 
 const app = express();
 
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,22 +24,7 @@ app.use('/users', usersRouter);
 app.use('/ejemplos', ejemplosRouter);
 app.use('/ejercicios', ejerciciosRouter);
 
-// agregado para ver si puedo obtener informacion
-// ----------------------------------------------
-// const nombreApp = app.name;
-// const puertoApp = app.get('port');
-
-// // Obtengo la version de Node.js
-// fnAppObtenerNombre = () => {
-//     return(nombreApp);
-//   };
-
-  
-// // Obtengo el puerto 
-// fnAppObtenerPuerto = () => {
-//     return(puertoApp);
-//   };
-
 
 
 module.exports = app;
+

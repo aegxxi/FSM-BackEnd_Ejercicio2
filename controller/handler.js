@@ -1,10 +1,15 @@
 //Funciones auxiliares
 //--------------------
+const app = require('../app');
+const entorno = require('../appSrvEntorno');
 
-const entorno = require('../app');
+//const [name, port, Port, PORT] = app
+//console.log(`name: ${app.name},puerto: ${app.puerto}, Port:${app.Port}, PORT:${app.PORT}`)
+
+const { fnMiServidor } = entorno
+const { srvPuerto, srvNombre } = fnMiServidor()
+
 const { version } = require("process");
-
-//const { server } = entorno
 
 const myhandler = {
     
@@ -26,20 +31,18 @@ const myhandler = {
     },
 
     
-      // Obtengo la version de Node.js
+      // Obtengo el nombre del servidor
       obtenerAppNombre : () => {
-        //const {} = entorno
-        const nombreServidor = `????` //app.name
+        const nombreServidor = (srvNombre) ? srvNombre : 'Nombre';  //`????` //app.name
         return(nombreServidor);
       },
 
       
       // Obtengo el puerto 
       obtenerAppPuerto : () => {
-        
         //const addr = app.port; //server.address()
-        const puerto = `????`  //app.get('port') //`${addr.port}`
-        return(puerto)
+        const puerto = srvPuerto;  //`????`  //app.get('port') //`${addr.port}`
+        return(puerto);
       },
 
 
