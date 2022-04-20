@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { inicio, informacion } = require('../controller/controller');
+//const { inicio, informacion } = require('../controller/controller');
 const manejador =  require('../controller/controller');
 
 //const { inicio, informacion } = manejador;
